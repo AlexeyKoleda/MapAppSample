@@ -16,3 +16,9 @@ struct Location {
     let imageNames: [String]
     let link: String
 }
+
+extension Location: Identifiable {
+    var id: String {
+        "\(name), \(cityName)"
+    }
+}
