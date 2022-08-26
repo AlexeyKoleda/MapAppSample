@@ -19,8 +19,11 @@ class LocationsViewModel: ObservableObject {
             updateMapRegion(location: mapLocation)
         }
     }
-    
+    /// Current region on map
     @Published var mapRegion: MKCoordinateRegion = MKCoordinateRegion()
+    
+    /// Controls shoving list of locations
+    @Published var showLocationList: Bool = false
     
     init(_ locations: [Location]) {
         let firstLocation = locations.first!
@@ -35,6 +38,19 @@ class LocationsViewModel: ObservableObject {
                 center: location.coordinates,
                 span: defaultMapSpan
             )
+        }
+    }
+    
+    func toggleLocationList() {
+        withAnimation(.easeInOut) {
+            showLocationList.toggle()
+        }
+    }
+    
+    func showNewLocation(location: Location) {
+        withAnimation(.easeInOut) {
+            mapLocation = location
+            showLocationList = false
         }
     }
 }
