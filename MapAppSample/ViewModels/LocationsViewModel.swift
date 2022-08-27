@@ -10,7 +10,6 @@ import MapKit
 import SwiftUI
 
 class LocationsViewModel: ObservableObject {
-    let defaultMapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
     /// All loaded locations
     @Published var locations: [Location]
     /// Current location
@@ -22,8 +21,11 @@ class LocationsViewModel: ObservableObject {
     /// Current region on map
     @Published var mapRegion: MKCoordinateRegion = MKCoordinateRegion()
     
-    /// Controls shoving list of locations
+    /// Controls showing list of locations
     @Published var showLocationList: Bool = false
+    
+    /// Show location details via sheet
+    @Published var sheetLocation: Location? = nil
     
     init(_ locations: [Location]) {
         let firstLocation = locations.first!
@@ -36,7 +38,7 @@ class LocationsViewModel: ObservableObject {
         withAnimation(.easeInOut) {
             mapRegion = MKCoordinateRegion(
                 center: location.coordinates,
-                span: defaultMapSpan
+                span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
             )
         }
     }
